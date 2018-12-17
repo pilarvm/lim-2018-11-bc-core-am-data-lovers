@@ -1,3 +1,5 @@
+﻿alert("hola");
+
 //función para seleccionar multiples paises
 function searchMutipleCountry(){
     const country=document.frm['country[]'];
