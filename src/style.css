@@ -1,3 +1,131 @@
 *{
-    
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    font-family: arial;
+}
+body{
+    background-attachment: fixed;
+    font-size: 16px;
+    margin-bottom: 20px;
+ }
+ h1{
+    font-size: 20px;
+    margin: auto;
+ }
+ .together{
+    display: flex;
+ }
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+/* estilos para menu principal (main-menu) */
+#button li {
+    display: inline;
+ }
+#button li span {
+    font-size: 13px;
+    text-decoration: none;
+    float: left;
+    padding: 2%;
+    margin: 0.3%;
+    width: 48.7%;
+    color: #fff;
+    border-radius: 5%;
+}
+#button li:nth-child(1) span{
+    background-color: #00AEEF;
+}
+#button li:nth-child(2) span{
+    background-color: #002F53;
+}
+footer{
+    background-color: black; 
+    margin:auto;
+    color: white;
+}
+/* slider */
+ .slider{
+    width: 95%;
+    margin: auto;
+    overflow: hidden;
+
+}
+.slider ul{
+    display: flex;
+    width: 400%;
+    animation: cambio 20s infinite alternate;
+    animation-timing-function: ease-in;
+}
+.slider li{
+    width: 100%;
+    list-style: none;
+ }
+.slider img{
+    width: 100%;
+ }
+@keyframes cambio{
+    0%{margin-left: 0%;}
+    20%{margin-left: 0%;}
+    25%{margin-left: -100%;}
+    45%{margin-left: -100%;}
+    50%{margin-left: -200%;}
+    70%{margin-left: -200%;}
+    75%{margin-left: -300%;}
+    100%{margin-left: -300%;}
+}
+/* Grilla */
+[class*="col-"]{
+    float: left;
+    min-height: 7x;
+    padding: 12px;
+    border-color: black;
+    border-style: double;
+}
+.col-1{
+    width: 8.33333333%
+}
+.col-2{
+    width: 16.666667%
+}
+.col-3{
+    width: 25%
+}
+.col-4{
+    width: 33.33333333%
+}
+.col-5{
+    width: 41.666667%
+}
+.col-6{
+    width: 50%
+}
+.col-7{
+    width: 58.333333%
+}
+.col-8{
+    width: 66.666667%
+}
+.col-9{
+    width: 75%
+}
+.col-10{
+    width: 83.333333%
+}
+.col-11{
+    width: 91.666667%
+}
+.col-12{
+    width: 100%
+}
+@media all and (max-width:450px) {
+    [class*="col-"] {
+        width: 100%;
+    }
 }
