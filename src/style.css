@@ -85,8 +85,8 @@ footer{
     float: left;
     min-height: 7x;
     padding: 12px;
-    border-color: black;
-    border-style: double;
+    /* border-color: black;
+    border-style: double; */
 }
 .col-1{
     width: 8.33333333%
