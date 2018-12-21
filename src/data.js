@@ -1,3 +1,23 @@
+
+function newRowTable(prop,result)
+{
+
+	var name_table=document.getElementById("table_result");
+
+    var row = name_table.insertRow(0+1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = '<p name="numero_f[]" class="non-margin">'+prop+'</p>';
+    cell2.innerHTML = '<p name="codigo_p[]" class="non-margin">'+result+'</p>';
+}
+
+
+
+
+
+
+
 // variables globales 
 let dateOne = 0;
 let dateTwo = 0;
@@ -12,99 +32,84 @@ function searchMutipleCountry() {
     }
   }
   return CountryArray;
-
-  const SearchCountry = [];
-  for (let i = 0; i < country.length; i++) {
-    if (country[i].checked) {
-      SearchCountry.push(country[i].value);
-    }
-  }
-  return SearchCountry;
 }
 // función para seleccionar una rango de fechas
 function searchRangeYear() {
   dateOne = document.frm['date-one'].value;
   dateTwo = document.frm['date-two'].value;
   if (dateOne.value >= dateTwo.value) {
-    alert('Rango de fecha inválido');
+    return alert('Rango de fecha inválido');
   }
-  return 0;
+  //return 0;
 }
-//FILTRAR POR INDICADOR
 
-const showResult = () => {
-    searchRangeYear();
-    const country=searchMutipleCountry();
-    let newArr=[];
-    for(let i = 0; i <= country.length; i++){
-        const textIndicatorName="Fuerza laboral con educación básica, mujeres (% de la fuerza laboral femenina)";
-        let pais = country[i];
-        // console.log(country[i]);
-        newArr.push(Object.assign({}, WORLDBANK[pais].indicators, {}));
-        console.log(newArr);
-    //    const selectIndicator = indi.filter(indi => indi.indicatorName === textIndicatorName);
-    //    console.table(selectIndicator);
+function searchIndicator() {
+  let indicat = document.frm['category[]'];
+
+  let IndicatorString = "";
+  for (let i = 0; i < indicat.length; i++) {
+    if (indicat[i].checked) {
+      IndicatorString= indicat[i].value;
     }
+  }
+  return IndicatorString;
 }
-window.WORLDBANK = {
-    showResult,
-};
 
 
+function searchSex() {
+  let sexArr = document.frm['sex[]'];
 
-// esta es una función de ejemplo
-// puedes ver como agregamos la función a nuestro objeto global window
+  let sexString = "";
+  for (let i = 0; i < sexArr.length; i++) {
+    if (sexArr[i].checked) {
+      sexString=sexArr[i].value;
+    }
+  }
+  return sexString;
+}
+function indicator() {
+  let indicator ="";
+  const IndicatorString = searchIndicator();
+  const sexString = searchSex();
+  if (IndicatorString==="SL.TLF.BASC.ZS" && sexString==="FE")return indicator="SL.TLF.BASC.FE.ZS";
+  else if (IndicatorString==="SL.TLF.BASC.ZS" && sexString==="MA")return indicator="SL.TLF.BASC.MA.ZS";
+  else if (IndicatorString==="SL.TLF.INTM.ZS" && sexString==="FE")return indicator="SL.TLF.INTM.FE.ZS";
+  else if (IndicatorString==="SL.TLF.INTM.ZS" && sexString==="MA")return indicator="SL.TLF.INTM.MA.ZS";
+  else if (IndicatorString==="SL.TLF.ADVN.ZS" && sexString==="FE")return indicator="SL.TLF.ADVN.FE.ZS";
+  else if (IndicatorString==="SL.TLF.ADVN.ZS" && sexString==="MA")return indicator="SL.TLF.ADVN.MA.ZS";
+  else if (IndicatorString==="SL.TLF.ACTI.ZS" && sexString==="FE")return indicator="SL.TLF.ACTI.FE.ZS";
+  else if (IndicatorString==="SL.TLF.ACTI.ZS" && sexString==="MA")return indicator="SL.TLF.ACTI.MA.ZS";
 
+}
 
 
 //FILTRAR POR INDICADOR
 const showResult = () => {
+  
   searchRangeYear();
   let country = searchMutipleCountry();
   country.forEach((element) => {
-    let cualquiera = {};
     indicatorsArr=  WORLDBANK[element].indicators;
-    console.log(indicatorsArr);
     
     let indicatorNameArr = [];
-    indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorName === 'Fuerza laboral con educación intermedia (% del total)');
-    console.log(indicatorNameArr);
-    console.log(dateOne+dateTwo);
-   
-    let indicatorDateArr = {};
-    indicatorDateArr = indicatorNameArr.filter(populationElement =>
-     (populationElement.data[dateTwo]));
-    console.log(indicatorDateArr);
+    indicatorNameArr = indicatorsArr.filter(populationElement => 
+      populationElement.indicatorCode === indicator());
     
+      let indicatorDateArr = [];
+    indicatorDateArr = indicatorNameArr[0].data;
+    
+
+    
+    for (let prop in indicatorDateArr){
+      if(prop >= dateOne && prop <= dateTwo){
+        newRowTable(prop,indicatorDateArr[prop]);
+      }
+    }
  
-    
   });   
 };
 
 
-const population = (arr) => {
-  arr=  WORLDBANK.PER.indicators;
-  
-  //return populationArr;
-};
 window.worldbank = {
-  showResult,
-  population
-  
+  showResult  
 };
-
-// const indi=WORLDBANK.PER.indicators;
-// const textindicatorCode='SL.TLF.PART.FE.ZS';
-// const iniDate=1990;
-// const lastDate=2010;
-
-
-// const selectIndicator = indi
-// .filter(indi => indi.indicatorCode === textindicatorCode);
-
-// console.log(selectIndicator);
-
-// const selectIndicator = indi
-// .filter(indi => indi.indicatorCode === textindicatorCode);
-
-// console.log(selectIndicator);
