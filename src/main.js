@@ -35,19 +35,20 @@
 // }
 
 
-const createBodyTable = () => {
-  let tr = document.createElement("TR");
-  tr.innerHTML = createRowTable();
+// const createBodyTable = () => {
+//   let tr = document.createElement("TR");
+//   tr.innerHTML = createRowTable();
   
-  return tr;
-}
-createRowTable = (etiqueta) => {
-  let td = document.createElement("TD");
-  td.innerHTML = etiqueta;
-  return td;
-}
+//   return tr;
+// }
+// createRowTable = (etiqueta) => {
+//   let td = document.createElement("TD");
+//   td.innerHTML = etiqueta;
+//   return td;
+// }
 // btn-submit
 const btnSubmit = document.getElementById('btn-submit');
 btnSubmit.addEventListener('click', () => {
   showResult();
+  
 });

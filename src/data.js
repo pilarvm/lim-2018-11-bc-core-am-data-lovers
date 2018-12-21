@@ -38,9 +38,9 @@ function searchRangeYear() {
   dateOne = document.frm['date-one'].value;
   dateTwo = document.frm['date-two'].value;
   if (dateOne.value >= dateTwo.value) {
-    alert('Rango de fecha inválido');
+    return alert('Rango de fecha inválido');
   }
-  return 0;
+  //return 0;
 }
 
 function searchIndicator() {
@@ -92,8 +92,10 @@ const showResult = () => {
     indicatorsArr=  WORLDBANK[element].indicators;
     
     let indicatorNameArr = [];
-    indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorCode === indicator());
-    let indicatorDateArr = [];
+    indicatorNameArr = indicatorsArr.filter(populationElement => 
+      populationElement.indicatorCode === indicator());
+    
+      let indicatorDateArr = [];
     indicatorDateArr = indicatorNameArr[0].data;
     
 
