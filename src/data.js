@@ -58,7 +58,7 @@ window.WORLDBANK = {
 
 
 //FILTRAR POR INDICADOR
-const showResult = () => {
+const showResults = () => {
   searchRangeYear();
   let country = searchMutipleCountry();
   country.forEach((element) => {
