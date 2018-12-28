@@ -18,12 +18,6 @@ body{
  .together{
     display: flex;
  }
-.hide{
-    display: none;
-}
-.show{
-    display: block;
-}
 label {
     display: block;
     margin: .5em 0 0 0;
@@ -32,7 +26,7 @@ label {
 #button li {
     display: inline;
  }
-#button li span {
+#button li a {
     font-size: 13px;
     text-decoration: none;
     float: left;
@@ -42,10 +36,10 @@ label {
     color: #fff;
     border-radius: 5%;
 }
-#button li:nth-child(1) span{
+#button li:nth-child(1) a{
     background-color: #00AEEF;
 }
-#button li:nth-child(2) span{
+#button li:nth-child(2) a{
     background-color: #002F53;
 }
 footer{
@@ -58,7 +52,6 @@ footer{
     width: 95%;
     margin: auto;
     overflow: hidden;
-
 }
 .slider ul{
     display: flex;
@@ -88,8 +81,8 @@ footer{
     float: left;
     min-height: 7x;
     padding: 12px;
-    border-color: black;
-    border-style: double;
+    /* border-color: black;
+    border-style: double; */
 }
 .col-1{
     width: 8.33333333%

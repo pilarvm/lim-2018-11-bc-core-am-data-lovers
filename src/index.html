@@ -3,18 +3,17 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Indicators World Banck</title>
+  <title>Indicators World Bank</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <main>
     <div class="row">
       <div class="col-12">
         <header>
           <div class="together">
-            <!-- <img src="../img/bmBig.png" alt="Banco Mundial">
-                <hr> -->
+            <img src="../img/bmBig.png" alt="Banco Mundial">
+            <hr>
             <h1>Trabajando para un Mundo Libre de Pobreza</h1>
           </div>
         </header>
@@ -24,8 +23,8 @@
       <div class="col-12">
         <nav>
           <ul id="button">
-            <li><span id="main-container" href="#">Los más Visitados</span></li>
-            <li><span id="body-container" href="#">Búsqueda Personalizada</span></li>
+            <li><a id="main-container" href="index.html">Los más Visitados</a></li>
+            <li><a id="body-container" href="search.html">Búsqueda Personalizada</a></li>
           </ul>
           <!-- <div class="slider">
               <ul>
@@ -39,54 +38,52 @@
       </div>
     </div>
     <div class="row">
-      <section id="container-search" class="show">
-        <div class="col-4">
-          <aside id="menu-left">
-            <form id="frm-search" name="frm">
-              <div id="select-country">
-                <label>PAISES</label>
-                <label><input type="checkbox" id="country[]" nnme="country[]" value="PER">Perú</label>
-                <label><input type="checkbox" id="country[]" nnme="country[]" value="CHL">Chile</label>
-                <label><input type="checkbox" id="country[]" nnme="country[]" value="MEX">México</label>
-                <label><input type="checkbox" id="country[]" nnme="country[]" value="BRA">Brasil</label>
-              </div>
-              <div id="select-laboral-force">
-                <label>INDICADOR</label>
-                <label><input type="radio" id="category[]" name="category[]" value='SL.TLF.BASC.ZS'>Fuerza laboral
-                      con educación básica</label>
-                <label><input type="radio" id="category[]" name="category[]" value='SL.TLF.INTM.ZS'>Fuerza laboral
-                      con educación intermedia</label>
-                <label><input type="radio" id="category[]" name="category[]" value='SL.TLF.ADVN.ZS'>Fuerza laboral
-                      con educación avanzada</label>
-                <label><input type="radio" id="category[]" name="category[]" value='SL.TLF.ACTI.ZS'>Tasa de
-                      participación en la fuerza laboral</label>
-              </div>
-              <div id="select-sex">
-                <label>GENERO</label>
-                <label><input type="radio" id="sex[]" name="sex[]" value='FE'>Femenino</label> 
-                <label><input type="radio" id="sex[]" name="sex[]" value='MA'>Masculino</label>  
-              </div>
-              <div id="date">
-                <label>FECHA</label>
-                <label>Desde<input type="number" id="date-one" max="2017" min="1960" maxlength="4" value="1960"></label> 
-                <label>Hasta<input type="number" id="date-two" max="2017" min="1960" maxlength="4" value="2017"></label> 
-              </div>
-              <div id="btn-enviar">
-                <input type="button" value="buscar" id="btn-submit" class="">
-              </div>
-        </div>
-
-        </form>
+      <div class="col-4">
+        <aside id="menu-left">
+          <form id="frm-search" name="frm">
+            <div id="select-country">
+              <label>PAISES</label>
+              <label><input type="checkbox" name="country[]" value="PER">Perú</label>
+              <label><input type="checkbox" name="country[]" value="CHL">Chile</label>
+              <label><input type="checkbox" name="country[]" value="MEX">México</label>
+              <label><input type="checkbox" name="country[]" value="BRA">Brasil</label>
+            </div>
+            <div id="select-laboral-force">
+              <label>INDICADOR</label>
+              <label><input type="radio" name="category[]" value="SL.TLF.BASC.ZS">Fuerza laboral
+                    con educación básica</label>
+              <label><input type="radio" name="category[]" value="SL.TLF.INTM.ZS">Fuerza laboral
+                    con educación intermedia</label>
+              <label><input type="radio" name="category[]" value="SL.TLF.ADVN.ZS">Fuerza laboral
+                    con educación avanzada</label>
+              <label><input type="radio" name="category[]" value="SL.TLF.ACTI.ZS">Tasa de
+                    participación en la fuerza laboral</label>
+            </div>
+            <div id="select-sex">
+              <label>GENERO</label>
+              <label><input type="radio" name="sex[]" value="FE">Femenino</label> 
+              <label><input type="radio" name="sex[]" value="MA">Masculino</label>  
+            </div>
+            <div id="date">
+              <label>FECHA</label>
+              <label>Desde<input type="number" id="date-one" max="2017" min="1960" maxlength="4" value="2017"></label> 
+              <label>Hasta<input type="number" id="date-two" max="2017" min="1960" maxlength="4" value="2017"></label> 
+            </div>
+            <div id="btn-enviar">
+              <input type="button" value="buscar" id="btn-submit" class="">
+            </div>
+          </form>
         </aside>
+      </div>
     </div>
     <div class="col-8">
       <section id="information">
         <div class="table-wrapper">
-          <table id="table_result" border="1">
-            <thead>
+          <table id="table_result">
+            <thead id="title_table">
               <tr>
-                <th>Año</th>
-                <th>Codigo</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="content_table">
@@ -97,9 +94,7 @@
             </tbody>
           </table>
         </div>
-
       </section>
-    </div>
     </div>
     <div class="row">
       <div class="col-12">

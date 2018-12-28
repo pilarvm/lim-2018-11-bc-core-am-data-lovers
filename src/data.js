@@ -1,115 +1,128 @@
-
-function newRowTable(prop,result)
-{
-
-	var name_table=document.getElementById("table_result");
-
-    var row = name_table.insertRow(0+1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-
-    cell1.innerHTML = '<p name="numero_f[]" class="non-margin">'+prop+'</p>';
-    cell2.innerHTML = '<p name="codigo_p[]" class="non-margin">'+result+'</p>';
-}
-
-
-
-
-
-
-
 // variables globales 
 let dateOne = 0;
 let dateTwo = 0;
-// función para seleccionar multiples paises
-function searchMutipleCountry() {
-  const country = document.frm['country[]'];
+/* global WORLDBANK:true */
+/* eslint no-undef: "error" */
 
-  const CountryArray = [];
-  for (let i = 0; i < country.length; i++) {
-    if (country[i].checked) {
-      CountryArray.push(country[i].value);
-    }
+// Funciones para crear tablas dinámicas
+
+const newRowTableCountry = (country) => {
+  let nameTable = document.getElementById('table_result');
+  let row = nameTable.insertRow(0);
+  let countryArr = country;
+  countryArr.unshift('Año');
+  for (let i = 0; i < countryArr.length; i++) {
+    row.insertCell(i).innerHTML = countryArr[i];
   }
+};
+
+const newRowTableYear = (dateOne, dateTwo) => {
+  let nameTable = document.getElementById('table_result');
+  for (let i = dateTwo; i >= dateOne; i--) {
+    let row = nameTable.insertRow(0 + 1);
+    row.insertCell(0).innerHTML = i;
+  }
+};
+
+const newRowTableYearProp = (goThroughRight, j, prop) => {
+  let row = document.getElementsByTagName('tr')[j];
+  let x = row.insertCell(goThroughRight);
+  x.innerHTML = prop;
+};
+
+// función para seleccionar multiples paises
+const searchMutipleCountry = () => {
+  const country = document.frm['country[]'];
+  const CountryArray = [];
+  for (let i = 0; i < country.length; i++) if (country[i].checked) CountryArray.push(country[i].value);
   return CountryArray;
-}
+};
+
 // función para seleccionar una rango de fechas
-function searchRangeYear() {
+const searchRangeYear = () => {
   dateOne = document.frm['date-one'].value;
   dateTwo = document.frm['date-two'].value;
-  if (dateOne.value >= dateTwo.value) {
-    return alert('Rango de fecha inválido');
-  }
-  //return 0;
-}
+  if (dateOne.value >= dateTwo.value) return alert('Rango de fecha inválido');
+  else return dateOne, dateTwo;
+};
 
-function searchIndicator() {
+// función para conocer indicador deseado
+const searchIndicator = () => {
   let indicat = document.frm['category[]'];
 
-  let IndicatorString = "";
+  let IndicatorString = '';
   for (let i = 0; i < indicat.length; i++) {
     if (indicat[i].checked) {
-      IndicatorString= indicat[i].value;
+      IndicatorString = indicat[i].value;
     }
   }
   return IndicatorString;
-}
+};
 
-
-function searchSex() {
+// función para conocer genero seleccionado
+const searchSex = () => {
   let sexArr = document.frm['sex[]'];
 
-  let sexString = "";
+  let sexString = '';
   for (let i = 0; i < sexArr.length; i++) {
     if (sexArr[i].checked) {
-      sexString=sexArr[i].value;
+      sexString = sexArr[i].value;
     }
   }
   return sexString;
-}
-function indicator() {
-  let indicator ="";
-  const IndicatorString = searchIndicator();
-  const sexString = searchSex();
-  if (IndicatorString==="SL.TLF.BASC.ZS" && sexString==="FE")return indicator="SL.TLF.BASC.FE.ZS";
-  else if (IndicatorString==="SL.TLF.BASC.ZS" && sexString==="MA")return indicator="SL.TLF.BASC.MA.ZS";
-  else if (IndicatorString==="SL.TLF.INTM.ZS" && sexString==="FE")return indicator="SL.TLF.INTM.FE.ZS";
-  else if (IndicatorString==="SL.TLF.INTM.ZS" && sexString==="MA")return indicator="SL.TLF.INTM.MA.ZS";
-  else if (IndicatorString==="SL.TLF.ADVN.ZS" && sexString==="FE")return indicator="SL.TLF.ADVN.FE.ZS";
-  else if (IndicatorString==="SL.TLF.ADVN.ZS" && sexString==="MA")return indicator="SL.TLF.ADVN.MA.ZS";
-  else if (IndicatorString==="SL.TLF.ACTI.ZS" && sexString==="FE")return indicator="SL.TLF.ACTI.FE.ZS";
-  else if (IndicatorString==="SL.TLF.ACTI.ZS" && sexString==="MA")return indicator="SL.TLF.ACTI.MA.ZS";
-
-}
-
-
-//FILTRAR POR INDICADOR
-const showResult = () => {
-  
-  searchRangeYear();
-  let country = searchMutipleCountry();
-  country.forEach((element) => {
-    indicatorsArr=  WORLDBANK[element].indicators;
-    
-    let indicatorNameArr = [];
-    indicatorNameArr = indicatorsArr.filter(populationElement => 
-      populationElement.indicatorCode === indicator());
-    
-      let indicatorDateArr = [];
-    indicatorDateArr = indicatorNameArr[0].data;
-    
-
-    
-    for (let prop in indicatorDateArr){
-      if(prop >= dateOne && prop <= dateTwo){
-        newRowTable(prop,indicatorDateArr[prop]);
-      }
-    }
- 
-  });   
 };
 
+// función para identificar indicador específico (según sexo)
+const indicator = () => {
+  let indicator = '';
+  const IndicatorString = searchIndicator();
+  const sexString = searchSex();
+  if (IndicatorString === 'SL.TLF.BASC.ZS' && sexString === 'FE') indicator = 'SL.TLF.BASC.FE.ZS';
+  else if (IndicatorString === 'SL.TLF.BASC.ZS' && sexString === 'MA') indicator = 'SL.TLF.BASC.MA.ZS';
+  else if (IndicatorString === 'SL.TLF.INTM.ZS' && sexString === 'FE') indicator = 'SL.TLF.INTM.FE.ZS';
+  else if (IndicatorString === 'SL.TLF.INTM.ZS' && sexString === 'MA') indicator = 'SL.TLF.INTM.MA.ZS';
+  else if (IndicatorString === 'SL.TLF.ADVN.ZS' && sexString === 'FE') indicator = 'SL.TLF.ADVN.FE.ZS';
+  else if (IndicatorString === 'SL.TLF.ADVN.ZS' && sexString === 'MA') indicator = 'SL.TLF.ADVN.MA.ZS';
+  else if (IndicatorString === 'SL.TLF.ACTI.ZS' && sexString === 'FE') indicator = 'SL.TLF.ACTI.FE.ZS';
+  else if (IndicatorString === 'SL.TLF.ACTI.ZS' && sexString === 'MA') indicator = 'SL.TLF.ACTI.MA.ZS';
+  return indicator;
+};
 
+// FILTRAR POR INDICADOR
+const showResult = () => {
+  searchRangeYear();
+  let country = searchMutipleCountry();
+  newRowTableCountry(country);
+  newRowTableYear(dateOne, dateTwo);
+  country.shift();
+  country.forEach((element) => {
+    const indicatorsArr = WORLDBANK[element].indicators;
+    let goThroughRight = 0;
+    let j = 0;
+    goThroughRight--;
+    let indicatorNameArr = [];
+    indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorCode === indicator());
+
+    let indicatorDateArr = [];
+    indicatorDateArr = indicatorNameArr[0].data;
+
+    for (let prop in indicatorDateArr) {
+      if (prop >= dateOne && prop <= dateTwo) {
+        j++;
+        newRowTableYearProp(goThroughRight, j, indicatorDateArr[prop]);
+      }
+    }
+  });
+};
 window.worldbank = {
-  showResult  
+  newRowTableCountry,
+  newRowTableYear,
+  newRowTableYearProp,
+  searchMutipleCountry,
+  searchRangeYear,
+  searchIndicator,
+  searchSex,
+  indicator,
+  showResult
+  
 };
