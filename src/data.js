@@ -1,15 +1,23 @@
 // variables globales 
 let dateOne = 0;
 let dateTwo = 0;
+let contador =0;
 /* global WORLDBANK:true */
 /* eslint no-undef: "error" */
 
 // Funciones para crear tablas dinámicas
 
+const addTableCaption = (caption) => {
+let node = document.createElement("H3");              
+let textnode = document.createTextNode(caption+'Años '+dateOne+' '+dateTwo);         
+node.appendChild(textnode);                              
+document.getElementById("caption").appendChild(node); 
+}
+
 const newRowTableCountry = (country) => {
   let nameTable = document.getElementById('table_result');
   let row = nameTable.insertRow(0);
-  let countryArr = country;
+  let countryArr = country.slice(0);
   countryArr.unshift('Año');
   for (let i = 0; i < countryArr.length; i++) {
     row.insertCell(i).innerHTML = countryArr[i];
@@ -59,6 +67,13 @@ const searchIndicator = () => {
   return IndicatorString;
 };
 
+
+const promResult = (array) =>{
+  let sum = array.reduce((previous, current) => current += previous);
+  let avg = sum / array.length;
+console.log(avg);
+
+}
 // función para conocer genero seleccionado
 const searchSex = () => {
   let sexArr = document.frm['sex[]'];
@@ -90,31 +105,42 @@ const indicator = () => {
 
 // FILTRAR POR INDICADOR
 const showResult = () => {
-  const arrOrder = [];
+  let matrix=[];
   searchRangeYear();
   let country = searchMutipleCountry();
   newRowTableCountry(country);
   newRowTableYear(dateOne, dateTwo);
-  country.shift();
+  
   country.forEach((element) => {
     const indicatorsArr = WORLDBANK[element].indicators;
     let goThroughRight = 0;
     let j = 0;
+    let indicatorResult=[];
     goThroughRight--;
     let indicatorNameArr = [];
+    
     indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorCode === indicator());
+    if (contador==0) addTableCaption(indicatorNameArr[0].indicatorName);
+    contador++;
     let indicatorDateArr = [];
     indicatorDateArr = indicatorNameArr[0].data;
+  
     for (let prop in indicatorDateArr) {
+      
       if (prop >= dateOne && prop <= dateTwo) {
         j++;
-        newRowTableYearProp(goThroughRight, j, indicatorDateArr[prop]);
+        newRowTableYearProp(goThroughRight, j, indicatorDateArr[prop].toFixed(2));
+        indicatorResult.push(indicatorDateArr[prop].toFixed(2));
+        
       }
       arrOrder.push(indicatorDateArr[prop]);
     }
-    return arrOrder;
+  console.log(indicatorResult);
+  promResult(indicatorResult);
+matrix.push(indicatorResult);
+console.log(matrix);
   });
-  console.log(arrOrder);
+    
 };
 // Ordenar Asc
 const orderAsc = () => {
