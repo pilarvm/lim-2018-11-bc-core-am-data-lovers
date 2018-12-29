@@ -39,9 +39,25 @@ label {
 #button li:nth-child(1) a{
     background-color: #00AEEF;
 }
-#button li:nth-child(2) a{
+#button li:nth-child(2) a {
     background-color: #002F53;
 }
+#button-indicators li {
+    display: inline;
+ }
+#button-indicators li span {
+    font-size: 14px;
+    text-decoration: none;
+    float: left;
+    padding: 2%;
+    margin: 0.3%;
+    width: 48.7%;
+    color: black;
+    border-radius: 5%;
+    background-color: #c4c4c4;
+}
+
+
 footer{
     background-color: black; 
     margin:auto;
@@ -55,7 +71,7 @@ footer{
 }
 .slider ul{
     display: flex;
-    width: 400%;
+    width: 300%;
     animation: cambio 20s infinite alternate;
     animation-timing-function: ease-in;
 }
@@ -68,21 +84,18 @@ footer{
  }
 @keyframes cambio{
     0%{margin-left: 0%;}
-    20%{margin-left: 0%;}
-    25%{margin-left: -100%;}
-    45%{margin-left: -100%;}
-    50%{margin-left: -200%;}
+    30%{margin-left: 0%;}
+    35%{margin-left: -100%;}
+    65%{margin-left: -100%;}
     70%{margin-left: -200%;}
-    75%{margin-left: -300%;}
-    100%{margin-left: -300%;}
+    100%{margin-left: -200%;}
+
 }
 /* Grilla */
 [class*="col-"]{
     float: left;
     min-height: 7x;
     padding: 12px;
-    /* border-color: black;
-    border-style: double; */
 }
 .col-1{
     width: 8.33333333%

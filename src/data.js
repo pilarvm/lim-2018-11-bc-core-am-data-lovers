@@ -90,6 +90,7 @@ const indicator = () => {
 
 // FILTRAR POR INDICADOR
 const showResult = () => {
+  const arrOrder = [];
   searchRangeYear();
   let country = searchMutipleCountry();
   newRowTableCountry(country);
@@ -102,18 +103,32 @@ const showResult = () => {
     goThroughRight--;
     let indicatorNameArr = [];
     indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorCode === indicator());
-
     let indicatorDateArr = [];
     indicatorDateArr = indicatorNameArr[0].data;
-
     for (let prop in indicatorDateArr) {
       if (prop >= dateOne && prop <= dateTwo) {
         j++;
         newRowTableYearProp(goThroughRight, j, indicatorDateArr[prop]);
       }
+      arrOrder.push(indicatorDateArr[prop]);
     }
+    return arrOrder;
   });
+  console.log(arrOrder);
 };
+// Ordenar Asc
+const orderAsc = () => {
+  const arrOrderAsc = showResult();
+  const newArrOrderAsc = [];
+  for (let i = 0; i <= arrOrderAsc.length; i++) {
+    console.log(arrOrderAsc[i]);
+    arrOrderAsc[i].sort(function(comparetionOne, comparetionTwo) {
+      newArrOrderAsc.push(comparetionOne - comparetionTwo);
+    });
+  }
+  console.log(newArrOrderAsc);
+};
+
 window.worldbank = {
   newRowTableCountry,
   newRowTableYear,
@@ -123,6 +138,6 @@ window.worldbank = {
   searchIndicator,
   searchSex,
   indicator,
-  showResult
-  
+  showResult,
+  orderAsc  
 };

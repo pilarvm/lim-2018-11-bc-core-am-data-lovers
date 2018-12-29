@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <title>Indicators World Bank</title>
@@ -26,71 +26,43 @@
             <li><a id="main-container" href="index.html">Los más Visitados</a></li>
             <li><a id="body-container" href="search.html">Búsqueda Personalizada</a></li>
           </ul>
-          <!-- <div class="slider">
+          <div class="slider">
               <ul>
                 <li><img src="../img/slider/bancoMundial.png" alt="¿Qué es el Banco Mundial?"></li>
-                <li><img src="../img/slider/requisitosCreditoBancoMundial.png" alt="Tipos de créditos que aborda el Banco Mundial?"></li>
-                <li><img src="../img/slider/tiposCreditosBancoMundial.png" alt="¿Cuáles son los trabajos disponibles en el Banco Mundial?"></li>
-                <li><img src="../img/slider/trabajoBancoMundial.png" alt="¿Cuáles son los trabajos disponibles en el Banco Mundial?"></li>
+                <li><img src="../img/slider/requisitosCreditoBancoMundial.png" alt="Objetivo Principal del BM"></li>
+                <li><img src="../img/slider/tiposCreditosBancoMundial.png" alt="¿Qué ofrece esta página?"></li>
               </ul>
-            </div>   -->
+            </div>  
         </nav>
       </div>
     </div>
     <div class="row">
-      <div class="col-4">
-        <aside id="menu-left">
-          <form id="frm-search" name="frm">
-            <div id="select-country">
-              <label>PAISES</label>
-              <label><input type="checkbox" name="country[]" value="PER">Perú</label>
-              <label><input type="checkbox" name="country[]" value="CHL">Chile</label>
-              <label><input type="checkbox" name="country[]" value="MEX">México</label>
-              <label><input type="checkbox" name="country[]" value="BRA">Brasil</label>
-            </div>
-            <div id="select-laboral-force">
-              <label>INDICADOR</label>
-              <label><input type="radio" name="category[]" value="SL.TLF.BASC.ZS">Fuerza laboral
-                    con educación básica</label>
-              <label><input type="radio" name="category[]" value="SL.TLF.INTM.ZS">Fuerza laboral
-                    con educación intermedia</label>
-              <label><input type="radio" name="category[]" value="SL.TLF.ADVN.ZS">Fuerza laboral
-                    con educación avanzada</label>
-              <label><input type="radio" name="category[]" value="SL.TLF.ACTI.ZS">Tasa de
-                    participación en la fuerza laboral</label>
-            </div>
-            <div id="select-sex">
-              <label>GENERO</label>
-              <label><input type="radio" name="sex[]" value="FE">Femenino</label> 
-              <label><input type="radio" name="sex[]" value="MA">Masculino</label>  
-            </div>
-            <div id="date">
-              <label>FECHA</label>
-              <label>Desde<input type="number" id="date-one" max="2017" min="1960" maxlength="4" value="2017"></label> 
-              <label>Hasta<input type="number" id="date-two" max="2017" min="1960" maxlength="4" value="2017"></label> 
-            </div>
-            <div id="btn-enviar">
-              <input type="button" value="buscar" id="btn-submit" class="">
-            </div>
-          </form>
-        </aside>
-      </div>
-    </div>
-    <div class="col-8">
-      <section id="information">
-        <div class="table-wrapper">
-          <table id="table_result">
-            <thead id="title_table">
-              <tr>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="content_table">
-            </tbody>
-          </table>
+        <div class="col-12">
+          <div class="slider">
+              <ul class="button-indicators">
+                  <li>
+                    <span id="SH">Anemia en mujeres en edad fértil (15 y 49 años)</span><!--SH.ANM.ALLW.ZS-->
+                    <span id="SG">Mujeres que creen que está justificado que un marido golpee a su esposa (por cualquier motivo)</span><!--SG.VAW.REAS.ZS-->
+                  </li>
+                  <li>
+                    <span id="SP">Población, mujeres (% del total)</span><!--SP.POP.TOTL.FE.ZS-->
+                    <span id="IC">Tiempo necesario para iniciar un negocio, mujeres (días)</span><!--IC.REG.DURS.FE-->
+                  </li>
+                  <li>
+                    <span id="IC">Porcentaje de empresas con manager mujer (promedio entre empresas que reportan)</span><!--IC.FRM.FEMM.ZS-->
+                    <span id="cov">Cobertura de los programas de trabajo y protección social (% de la población)</span><!--per_allsp.cov_pop_tot-->
+                  </li>
+              </ul>
+          </div>
         </div>
-      </section>
+    </div>
+    <div class="row">
+        <div class="col-12">
+          <section class="continer">
+            <span id="result">
+            </span>
+          </section>
+        </div>
     </div>
     <div class="row">
       <div class="col-12">
@@ -102,5 +74,4 @@
   <script src="data.js"></script>
   <script src="main.js"></script>
 </body>
-
 </html>
