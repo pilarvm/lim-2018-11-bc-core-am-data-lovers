@@ -1,21 +1,21 @@
 // variables globales 
 let dateOne = 0;
 let dateTwo = 0;
-let contador =0;
+
 /* global WORLDBANK:true */
 /* eslint no-undef: "error" */
 
 // Funciones para crear tablas dinámicas
 
 const addTableCaption = (caption) => {
-let node = document.createElement("H3");              
-let textnode = document.createTextNode(caption+'Años '+dateOne+' '+dateTwo);         
-node.appendChild(textnode);                              
-document.getElementById("caption").appendChild(node); 
+  let node = document.createElement("H3");
+  let textnode = document.createTextNode(caption + 'Años ' + dateOne + ' ' + dateTwo);
+  node.appendChild(textnode);
+  document.getElementById("caption").appendChild(node);
 }
 
-const newRowTableCountry = (country) => {
-  let nameTable = document.getElementById('table_result');
+const newRowTableCountry = (country, docElemt) => {
+  let nameTable = document.getElementById(docElemt);
   let row = nameTable.insertRow(0);
   let countryArr = country.slice(0);
   countryArr.unshift('Año');
@@ -24,8 +24,8 @@ const newRowTableCountry = (country) => {
   }
 };
 
-const newRowTableYear = (dateOne, dateTwo) => {
-  let nameTable = document.getElementById('table_result');
+const newRowTableYear = (dateOne, dateTwo, docElemt) => {
+  let nameTable = document.getElementById(docElemt);
   for (let i = dateTwo; i >= dateOne; i--) {
     let row = nameTable.insertRow(0 + 1);
     row.insertCell(0).innerHTML = i;
@@ -68,10 +68,10 @@ const searchIndicator = () => {
 };
 
 
-const promResult = (array) =>{
+const promResult = (array) => {
   let sum = array.reduce((previous, current) => current += previous);
   let avg = sum / array.length;
-console.log(avg);
+  console.log(avg);
 
 }
 // función para conocer genero seleccionado
@@ -105,42 +105,49 @@ const indicator = () => {
 
 // FILTRAR POR INDICADOR
 const showResult = () => {
-  let matrix=[];
+  Reset(); 
+  let matrix = [];
+  let contador = 0;
   searchRangeYear();
   let country = searchMutipleCountry();
-  newRowTableCountry(country);
-  newRowTableYear(dateOne, dateTwo);
-  
+  newRowTableCountry(country, 'table_result');
+  newRowTableYear(dateOne, dateTwo, 'table_result');
+
   country.forEach((element) => {
     const indicatorsArr = WORLDBANK[element].indicators;
     let goThroughRight = 0;
     let j = 0;
-    let indicatorResult=[];
+    let indicatorResult = [];
     goThroughRight--;
     let indicatorNameArr = [];
-    
+
     indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorCode === indicator());
-    if (contador==0) addTableCaption(indicatorNameArr[0].indicatorName);
+    if (contador == 0) addTableCaption(indicatorNameArr[0].indicatorName);
     contador++;
     let indicatorDateArr = [];
     indicatorDateArr = indicatorNameArr[0].data;
-  
+
     for (let prop in indicatorDateArr) {
-      
+
       if (prop >= dateOne && prop <= dateTwo) {
         j++;
         newRowTableYearProp(goThroughRight, j, indicatorDateArr[prop].toFixed(2));
         indicatorResult.push(indicatorDateArr[prop].toFixed(2));
-        
+
       }
     }
-  console.log(indicatorResult);
-  promResult(indicatorResult);
-matrix.push(indicatorResult);
-console.log(matrix);
+    console.log(indicatorResult);
+    promResult(indicatorResult);
+    matrix.push(indicatorResult);
+    console.log(matrix);
   });
-    
 };
+
+const Reset = () => {
+  document.getElementById('table_result').innerHTML = '';
+  document.getElementById('caption').innerHTML = '';
+};
+
 window.worldbank = {
   newRowTableCountry,
   newRowTableYear,
@@ -151,5 +158,4 @@ window.worldbank = {
   searchSex,
   indicator,
   showResult
-  
 };
