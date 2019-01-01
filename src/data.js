@@ -4,15 +4,25 @@ let dateTwo = 0;
 /* global WORLDBANK:true */
 /* eslint no-undef: "error" */
 
-// Funciones para crear tablas dinámicas
+/* *********** FUNCIONES PARA CREAR TABLAS DINÁMICAS *********** */
 
+// Función para pinta caption con rango de años
 const addTableCaption = (caption) => {
   const node = document.createElement('H3');              
   const textnode = document.createTextNode(`${caption}, del ${dateOne} al ${dateTwo}`);         
   node.appendChild(textnode);                              
   document.getElementById('caption').appendChild(node); 
 };
-
+// Función para conocer caption de indicators
+const indicatiorsCaption = (indicatorsArr, ind) => {
+  let nameLimit = 0;
+  let indicatorNameArr = [];
+  indicatorNameArr = indicatorsArr.filter(populationElement => (populationElement.indicatorCode === indicator(ind) && populationElement.countryCode === 'PER'));
+  if (nameLimit === 0)addTableCaption(indicatorNameArr[0].indicatorName);
+  nameLimit++;
+  return indicatorNameArr;
+};
+// Función que retorna fila de paises seleccionados
 const newRowTableCountry = (country) => {
   let nameTable = document.getElementById('table_result');
   let row = nameTable.insertRow(0);
@@ -20,7 +30,7 @@ const newRowTableCountry = (country) => {
   countryArr.unshift('Año');
   for (let i = 0; i < countryArr.length; i++) row.insertCell(i).innerHTML = countryArr[i];
 };
-
+// Función que retorna columna de años seleccionados
 const newRowTableYear = (dateOne, dateTwo) => {
   let nameTable = document.getElementById('table_result');
   for (let i = dateTwo; i >= dateOne; i--) {
@@ -28,12 +38,14 @@ const newRowTableYear = (dateOne, dateTwo) => {
     row.insertCell(0).innerHTML = i;
   }
 };
-
+// Función que retorna los resultdos segun pais y año seleccionado
 const newRowTableYearProp = (j, prop) => {
   let row = document.getElementsByTagName('tr')[j];
   let x = row.insertCell(-1);
   x.innerHTML = prop;
 };
+
+/* *********** FUNCIONES PARA MENÚ DE BÚSQUEDA *********** */
 
 // función para seleccionar multiples paises
 const searchMutipleCountry = () => {
@@ -44,7 +56,6 @@ const searchMutipleCountry = () => {
     // else return alert('Debe selecionar al menos 1 país');
   return CountryArray;
 };
-
 // función para seleccionar una rango de fechas
 const searchRangeYear = () => {
   dateOne = document.frm['date-one'].value;
@@ -52,7 +63,6 @@ const searchRangeYear = () => {
   if (dateOne.value >= dateTwo.value) return alert('Rango de fecha inválido');
   else return dateOne, dateTwo;
 };
-
 // función para conocer indicador deseado
 const searchIndicator = () => {
   let indicat = document.frm['category[]'];
@@ -62,14 +72,6 @@ const searchIndicator = () => {
     // else return 'Debe selecionar 1 categoría';
   return IndicatorString;
 };
-
-
-// const promResult = (array) =>{
-//   let sum = array.reduce((previous, current) => current += previous);
-//   let avg = sum / array.length;
-// console.log(avg);
-
-// }
 // función para conocer genero seleccionado
 const searchSex = () => {
   let sexArr = document.frm['sex[]'];
@@ -79,9 +81,8 @@ const searchSex = () => {
     // else return 'Debe selecionar 1 genero';
   return sexString;
 };
-
 // función para identificar indicador específico (según sexo)
-const indicator = () => {
+const indicator = (ind) => {
   let indicator = '';
   const IndicatorString = searchIndicator();
   const sexString = searchSex();
@@ -93,27 +94,28 @@ const indicator = () => {
   else if (IndicatorString === 'SL.TLF.ADVN.ZS' && sexString === 'MA') indicator = 'SL.TLF.ADVN.MA.ZS';
   else if (IndicatorString === 'SL.TLF.ACTI.ZS' && sexString === 'FE') indicator = 'SL.TLF.ACTI.FE.ZS';
   else if (IndicatorString === 'SL.TLF.ACTI.ZS' && sexString === 'MA') indicator = 'SL.TLF.ACTI.MA.ZS';
+  else if (ind === 'SH') indicator = 'SH.ANM.ALLW.ZS';
+  else if (ind === 'SG') indicator = 'SG.VAW.REAS.ZS';
+  else if (ind === 'SP') indicator = 'SP.POP.TOTL.FE.ZS';
+  else if (ind === 'IC') indicator = 'IC.REG.DURS.FE';
+  else if (ind === 'ICF') indicator = 'IC.FRM.FEMM.ZS';
+  else if (ind === 'COV') indicator = 'per_allsp.cov_pop';
   return indicator;
 };
 
-// FILTRAR POR INDICADOR
-const showResult = () => {
-  let contador = 0;
+/* *********** FUNCIONES ESPECIALIZADAS *********** */
+// Función con forEach 
+const showForEach = (country, dateOne, dateTwo, ind) => {
   let matrix = [];
-  let country = searchMutipleCountry();
-  searchRangeYear();
-  newRowTableCountry(country);
-  newRowTableYear(dateOne, dateTwo);
-  let indicatorNameArr = [];
   country.forEach((element) => {
     let j = 0;
-    let indicatorResult = [];
-    const indicatorsArr = WORLDBANK[element].indicators;
-    indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorCode === indicator());
-    if (contador === 0) addTableCaption(indicatorNameArr[0].indicatorName);
-    contador++;
     let indicatorDateArr = [];
+    let indicatorResult = [];
+    let indicatorNameArr = [];
+    const indicatorsArr = WORLDBANK[element].indicators;
+    indicatorNameArr = indicatiorsCaption(indicatorsArr, ind);
     indicatorDateArr = indicatorNameArr[0].data;
+    // console.log(indicatorDateArr);
     for (let prop in indicatorDateArr) {
       if (prop >= dateOne && prop <= dateTwo) { // prop hace referencia a la propiedad del objeto (en este caso años)
         let indDateArrTwoDec = 0;
@@ -125,38 +127,82 @@ const showResult = () => {
         indicatorResult.push(indDateArrTwoDec);
       }
     }
-    console.log(`esto es push de indicatorResult ${indicatorResult}`);
+    // console.log(`esto es push de indicatorResult ${indicatorResult}`);
     matrix.push(indicatorResult);
-    // let m = 0;
-    // if (m<country.length) {
-    //   m++;
-    //   matrix[h, m] = indicatorResult;
-    console.log(`esto es matrix (en proceso)  ${matrix}`);
-    // }
-    // console.log(h);
-    // indicatorResult.slice(0);
-    // indicatorResultForCountry = indicatorResult.slice(2);
-    // promResult(indicatorResult);
-    // matrix.push(indicatorResultForCountry);
-    // contMatrizGo++;
+  //   console.log(`esto es matrix (en proceso)  ${matrix}`);
   });
-  // console.log('esto es matrix ' + matrix.slice(2));
-  // console.log(`${indicatorResult.length} / ${country.length}`);
-  // for (let n = 0; n < (indicatorResult.length / country.length); n++) {
-  //   matrix [n] =[];
-  //   for(let m = 0; m<country.length; m++) {
-  //     console.log(`esto es n: ${n} y esto es m: ${m}`);
-  //     console.log(`esto es push matrix: ${matrix[n][m] = indicatorResult}`);
-  //   } 
-  // }
-  console.log(`esto es matrix (fuera de for): ${matrix}`);
-  // matrix.push(indicatorResult);    
-  return matrix; 
+  // console.log(`esto es matrix (fuera de for): ${matrix}`);
+  return matrix;
 };
+// FILTRAR POR INDICADOR
+const showResult = () => {
+  let country = searchMutipleCountry();
+  searchRangeYear();
+  newRowTableCountry(country);
+  newRowTableYear(dateOne, dateTwo);
+  showForEach(country, dateOne, dateTwo);
+};
+
+// Función para promedio EN PROCESO
+const promResult = (array) => {
+  let sum = array.reduce((previous, current) => current += previous);
+  let avg = sum / array.length;
+  console.log(avg);
+};
+// Función para ordenar Ascendentemente
 const orderAsc = () => {
   let matriz = showResult();
   alert(matriz);
-  // una vez que rotorne ma matriz adecuada se ordenara de modos ASC y DESC
+  // una vez que rotorne ma matriz adecuada se ordenara de modos ASC
+};
+
+// Función para ordenar Ascendentemente
+const orderDesc = () => {
+  let matriz = showResult();
+  alert(matriz);
+  // una vez que rotorne ma matriz adecuada se ordenara de modos DESC
+};
+const indicatorSH = () => {
+  let country = ['PER', 'CHL', 'MEX', 'BRA'];
+  const indicator = 'SH';
+  newRowTableCountry(country);
+  newRowTableYear(2017, 2017);
+  showForEach(country, 2017, 2017, indicator);
+};
+const indicatorSG = () => {
+  let country = ['PER', 'CHL', 'MEX', 'BRA'];
+  const indicator = 'SG';
+  newRowTableCountry(country);
+  newRowTableYear(2017, 2017);
+  showForEach(country, 2017, 2017, indicator);
+};
+const indicatorSP = () => {
+  let country = ['PER', 'CHL', 'MEX', 'BRA'];
+  const indicator = 'SP';
+  newRowTableCountry(country);
+  newRowTableYear(2017, 2017);
+  showForEach(country, 2017, 2017, indicator);
+};
+const indicatorIC = () => {
+  let country = ['PER', 'CHL', 'MEX', 'BRA'];
+  const indicator = 'IC';
+  newRowTableCountry(country);
+  newRowTableYear(2017, 2017);
+  showForEach(country, 2017, 2017, indicator);
+};
+const indicatorICF = () => {
+  let country = ['PER', 'CHL', 'MEX', 'BRA'];
+  const indicator = 'ICF';
+  newRowTableCountry(country);
+  newRowTableYear(2017, 2017);
+  showForEach(country, 2017, 2017, indicator);
+};
+const indicatorCOV = () => {
+  let country = ['PER', 'CHL', 'MEX', 'BRA'];
+  const indicator = 'COV';
+  newRowTableCountry(country);
+  newRowTableYear(2017, 2017);
+  showForEach(country, 2017, 2017, indicator);
 };
 window.worldbank = {
   newRowTableCountry,
@@ -167,6 +213,14 @@ window.worldbank = {
   searchIndicator,
   searchSex,
   indicator,
+  promResult,
   orderAsc,
+  orderDesc,
+  indicatorSH,
+  indicatorSG,
+  indicatorSP,
+  indicatorIC,
+  indicatorICF,
+  indicatorCOV,
   showResult
 };
