@@ -6,20 +6,10 @@ let dateTwo = 0;
 
 /* *********** FUNCIONES PARA CREAR TABLAS DINÁMICAS *********** */
 
-// Función para pinta caption con rango de años
-const addTableCaption = (caption) => {
-  const node = document.createElement('H3');              
-  const textnode = document.createTextNode(`${caption}, del ${dateOne} al ${dateTwo}`);         
-  node.appendChild(textnode);                              
-  document.getElementById('caption').appendChild(node); 
-};
 // Función para conocer caption de indicators
 const indicatiorsCaption = (indicatorsArr, ind) => {
-  let nameLimit = 0;
   let indicatorNameArr = [];
-  indicatorNameArr = indicatorsArr.filter(populationElement => (populationElement.indicatorCode === indicator(ind) && populationElement.countryCode === 'PER'));
-  if (nameLimit === 0)addTableCaption(indicatorNameArr[0].indicatorName);
-  nameLimit++;
+  indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorCode === indicator(ind));
   return indicatorNameArr;
 };
 // Función que retorna fila de paises seleccionados
@@ -107,6 +97,7 @@ const indicator = (ind) => {
 // Función con forEach 
 const showForEach = (country, dateOne, dateTwo, ind) => {
   let matrix = [];
+  let nameLimit = 0;
   country.forEach((element) => {
     let j = 0;
     let indicatorDateArr = [];
@@ -115,6 +106,8 @@ const showForEach = (country, dateOne, dateTwo, ind) => {
     const indicatorsArr = WORLDBANK[element].indicators;
     indicatorNameArr = indicatiorsCaption(indicatorsArr, ind);
     indicatorDateArr = indicatorNameArr[0].data;
+    if (nameLimit === 0) addTableCaption(indicatorNameArr[0].indicatorName);
+    nameLimit++;
     // console.log(indicatorDateArr);
     for (let prop in indicatorDateArr) {
       if (prop >= dateOne && prop <= dateTwo) { // prop hace referencia a la propiedad del objeto (en este caso años)
@@ -122,7 +115,7 @@ const showForEach = (country, dateOne, dateTwo, ind) => {
         j++; // contador de rango de años (ejem: 2010 a 2012 recorre de 0 a 1 - 2 veces) - debe estar en la parte superior
         // condicional que combierte los "" string (espacios vacios) en 0 para evitar que toFixed genere error
         if (typeof(indicatorDateArr[prop]) === 'number') indDateArrTwoDec = indicatorDateArr[prop].toFixed(2);
-        else indDateArrTwoDec = 0;
+        else indDateArrTwoDec = '';
         newRowTableYearProp(j, indDateArrTwoDec);
         indicatorResult.push(indDateArrTwoDec);
       }
@@ -132,7 +125,7 @@ const showForEach = (country, dateOne, dateTwo, ind) => {
   //   console.log(`esto es matrix (en proceso)  ${matrix}`);
   });
   // console.log(`esto es matrix (fuera de for): ${matrix}`);
-  return matrix;
+  console.log (matrix);
 };
 // FILTRAR POR INDICADOR
 const showResult = () => {
@@ -162,44 +155,9 @@ const orderDesc = () => {
   alert(matriz);
   // una vez que rotorne ma matriz adecuada se ordenara de modos DESC
 };
-const indicatorSH = () => {
+const frequentIndicator = (ind) => {
   let country = ['PER', 'CHL', 'MEX', 'BRA'];
-  const indicator = 'SH';
-  newRowTableCountry(country);
-  newRowTableYear(2017, 2017);
-  showForEach(country, 2017, 2017, indicator);
-};
-const indicatorSG = () => {
-  let country = ['PER', 'CHL', 'MEX', 'BRA'];
-  const indicator = 'SG';
-  newRowTableCountry(country);
-  newRowTableYear(2017, 2017);
-  showForEach(country, 2017, 2017, indicator);
-};
-const indicatorSP = () => {
-  let country = ['PER', 'CHL', 'MEX', 'BRA'];
-  const indicator = 'SP';
-  newRowTableCountry(country);
-  newRowTableYear(2017, 2017);
-  showForEach(country, 2017, 2017, indicator);
-};
-const indicatorIC = () => {
-  let country = ['PER', 'CHL', 'MEX', 'BRA'];
-  const indicator = 'IC';
-  newRowTableCountry(country);
-  newRowTableYear(2017, 2017);
-  showForEach(country, 2017, 2017, indicator);
-};
-const indicatorICF = () => {
-  let country = ['PER', 'CHL', 'MEX', 'BRA'];
-  const indicator = 'ICF';
-  newRowTableCountry(country);
-  newRowTableYear(2017, 2017);
-  showForEach(country, 2017, 2017, indicator);
-};
-const indicatorCOV = () => {
-  let country = ['PER', 'CHL', 'MEX', 'BRA'];
-  const indicator = 'COV';
+  const indicator = ind;
   newRowTableCountry(country);
   newRowTableYear(2017, 2017);
   showForEach(country, 2017, 2017, indicator);
@@ -216,11 +174,6 @@ window.worldbank = {
   promResult,
   orderAsc,
   orderDesc,
-  indicatorSH,
-  indicatorSG,
-  indicatorSP,
-  indicatorIC,
-  indicatorICF,
-  indicatorCOV,
+  frequentIndicator,
   showResult
 };
