@@ -10,18 +10,83 @@ let btnIndex = document.getElementById('btn-index');
 let btnSearch = document.getElementById('btn-search');
 
 btnSubmit.addEventListener('click', () => {
-  searchRangeYear();
-  searchMutipleCountry();
-  indicator();
-
-  worldbank.showResult();
-  
-console.log(searchMutipleCountry());
-console.log(indicator());
-console.log(searchRangeYear());
-  // addTableCaption();
+  const matrix = worldbank.showResult(searchMutipleCountry(), searchRangeYear(), indicator());
+  // newRowTableCountry(searchMutipleCountry());
+  generaTabla(matrix);
 });
 
+const generaTabla = (matrix) => {
+    // Obtener la referencia del elemento body
+  var body = document.getElementsByTagName("body")[0];
+   
+    // Crea un elemento <table> y un elemento <tbody>
+    let tabla   = document.createElement('TABLE');
+    let tblBody = document.createElement('TBODY');
+   
+    // Crea las celdas
+    for (let i = 0; i < matrix.length; i++) {
+      // Crea las hileras de la tabla
+      let hilera = document.createElement("tr");
+   
+      for (var j = 0; j < matrix[i].length; j++) {
+        // Crea un elemento <td> y un nodo de texto, haz que el nodo de
+        // texto sea el contenido de <td>, ubica el elemento <td> al final
+        // de la hilera de la tabla
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(matrix[i][j]);
+        celda.appendChild(textoCelda);
+        hilera.appendChild(celda);
+      }
+   
+      // agrega la hilera al final de la tabla (al final del elemento tblbody)
+      tblBody.appendChild(hilera);
+    }
+   
+    // posiciona el <tbody> debajo del elemento <table>
+    tabla.appendChild(tblBody);
+    // appends <table> into <body>
+    body.appendChild(tabla);
+    // modifica el atributo "border" de la tabla y lo fija a "2";
+    tabla.setAttribute("border", "2");
+  }
+
+
+
+// const newRowTableCountry = (country) => {
+//   let nameTable = document.getElementById('table_result');
+//   let row = nameTable.insertRow(0);
+//   let countryArr = country;
+//   countryArr.unshift('Año');
+//   for (let i = 0; i < countryArr.length; i++) {
+//     row.insertCell(i).innerHTML = countryArr[i];
+//   }
+// };
+
+
+
+
+
+
+
+
+// const newRowTableCountry = (country) => {
+//   let nameTable = document.getElementById('table_result');
+//   let row = nameTable.insertRow(0);
+//   let countryArr = country.slice(0);
+//   countryArr.unshift('Año');
+//   for (let i = 0; i < countryArr.length; i++){
+//     console.log(row.insertCell(i).innerHTML = countryArr[i]);
+//   }
+  // 
+//};
+// // Función que retorna columna de años seleccionados
+// const newRowTableYear = (dateOne, dateTwo) => {
+//   let nameTable = document.getElementById('table_result');
+//   for (let i = dateTwo; i >= dateOne; i--) {
+//     let row = nameTable.insertRow(0 + 1);
+//     row.insertCell(0).innerHTML = i;
+//   }
+// };
 let addTableCaption = (indi) => {
   const dateRange = searchRangeYear();
   indicator(indi);
@@ -70,7 +135,7 @@ const searchSex = () => {
   return sexString;
 };
 // función para identificar indicador específico (según sexo)
-const indicator = (ind) => {
+const indicator = () => { // ind
   let indicator = '';
   const IndicatorString = searchIndicator();
   const sexString = searchSex();
@@ -82,12 +147,12 @@ const indicator = (ind) => {
   else if (IndicatorString === 'SL.TLF.ADVN.ZS' && sexString === 'MA') indicator = 'SL.TLF.ADVN.MA.ZS';
   else if (IndicatorString === 'SL.TLF.ACTI.ZS' && sexString === 'FE') indicator = 'SL.TLF.ACTI.FE.ZS';
   else if (IndicatorString === 'SL.TLF.ACTI.ZS' && sexString === 'MA') indicator = 'SL.TLF.ACTI.MA.ZS';
-  else if (ind === 'SH') indicator = 'SH.ANM.ALLW.ZS';
-  else if (ind === 'SG') indicator = 'SG.VAW.REAS.ZS';
-  else if (ind === 'SP') indicator = 'SP.POP.TOTL.FE.ZS';
-  else if (ind === 'IC') indicator = 'IC.REG.DURS.FE';
-  else if (ind === 'ICF') indicator = 'IC.FRM.FEMM.ZS';
-  else if (ind === 'COV') indicator = 'per_allsp.cov_pop';
+  // else if (ind === 'SH') indicator = 'SH.ANM.ALLW.ZS';
+  // else if (ind === 'SG') indicator = 'SG.VAW.REAS.ZS';
+  // else if (ind === 'SP') indicator = 'SP.POP.TOTL.FE.ZS';
+  // else if (ind === 'IC') indicator = 'IC.REG.DURS.FE';
+  // else if (ind === 'ICF') indicator = 'IC.FRM.FEMM.ZS';
+  // else if (ind === 'COV') indicator = 'per_allsp.cov_pop';
   return indicator;
 };
 
