@@ -70,6 +70,12 @@ footer{
     margin: auto;
     overflow: hidden;
 }
+.show {
+    display: block;
+}
+.hide {
+    display: none;
+}
 .slider ul{
     display: flex;
     width: 300%;
