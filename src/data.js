@@ -2,10 +2,14 @@
 /* global WORLDBANK:true */
 /* eslint no-undef: "error" */
 
+
+
+
 /* *********** FUNCIONES PARA CREAR TABLAS DINÁMICAS *********** */
-// Función para pinta caption con rango de años
 // Función para conocer caption de indicators
-const indicatiorsCaption = (indicatorsArr, ind) => {
+
+const indicatiorsCaption = (indicatorsArr,ind) => {
+  // indicatorsArr = WORLDBANK[element].indicators;
   let indicatorNameArr = [];
   indicatorNameArr = indicatorsArr.filter(populationElement => populationElement.indicatorCode === ind);
   return indicatorNameArr;
@@ -18,14 +22,7 @@ const indicatiorsCaption = (indicatorsArr, ind) => {
 //   countryArr.unshift('Año');
 //   for (let i = 0; i < countryArr.length; i++) row.insertCell(i).innerHTML = countryArr[i];
 // };
-// Función que retorna columna de años seleccionados
-const newRowTableYear = (dateOne, dateTwo) => {
-  let nameTable = document.getElementById('table_result');
-  for (let i = dateTwo; i >= dateOne; i--) {
-    let row = nameTable.insertRow(0 + 1);
-    row.insertCell(0).innerHTML = i;
-  }
-};
+
 
 
 
@@ -41,6 +38,7 @@ const showResult = (country, arrYear, ind) => {
     let indicatorResult = [];
     let indicatorNameArr = [];
     const indicatorsArr = WORLDBANK[element].indicators;
+    console.log(indicator)
     indicatorNameArr = indicatiorsCaption(indicatorsArr, ind);
     indicatorDateArr = indicatorNameArr[0].data;
     // if (nameLimit === 0) addTableCaption(indicatorNameArr[0].indicatorName);
@@ -51,38 +49,46 @@ const showResult = (country, arrYear, ind) => {
         let indDateArrTwoDec = 0;
         j++; // contador de rango de años (ejem: 2010 a 2012 recorre de 0 a 1 - 2 veces) - debe estar en la parte superior
         // condicional que combierte los "" string (espacios vacios) en 0 para evitar que toFixed genere error
-        if (typeof(indicatorDateArr[prop]) === 'number') indDateArrTwoDec = indicatorDateArr[prop].toFixed(2);
+        if (typeof (indicatorDateArr[prop]) === 'number') indDateArrTwoDec = indicatorDateArr[prop].toFixed(2);
         else indDateArrTwoDec = '';
         // newRowTableYearProp(j, indDateArrTwoDec);
         indicatorResult.push(indDateArrTwoDec);
       }
     }
-    // console.log(`esto es push de indicatorResult ${indicatorResult}`);
     matrix.push(indicatorResult);
-  //   console.log(`esto es matrix (en proceso)  ${matrix}`);
   });
-  // console.log(`esto es matrix (fuera de for): ${matrix}`);
+
   return matrix;
 };
-// FILTRAR POR INDICADOR
-// const showResult = (arrCountry, arrYear,ind) => {
-//   // console.log(arrCountry);
-//   // console.log(arrYear);
-//   // newRowTableCountry(country);
-//   // newRowTableYear(dateOne, dateTwo);
-//   showForEach(arrCountry, arrYear,);
-// };
 
-// Función para promedio EN PROCESO
+// Función para promedio
 const promResult = (array) => {
-  let sum = array.reduce((previous, current) => current += previous);
-  let avg = sum / array.length;
-  console.log(avg);
+  let prom = [];
+  array.forEach(element => {
+    let sum = element.reduce((previous, current) => {return (parseInt(previous) + parseInt(current))},0);
+    let avg = sum / element.length;
+    prom.push(avg.toFixed(2));    
+  });
+  return prom;
 };
+
+
+
+
+
+
+
+
 // Función para ordenar Ascendentemente
-const orderAsc = () => {
-  let matriz = showResult();
-  alert(matriz);
+const orderAsc = (matriz) => {
+  let reversed=[];
+  console.log(matriz);
+  let matriz1 =[...matriz];
+  console.log(matriz1);
+  for (let i = 0; i < matriz1.length; i++) {
+    reversed.push(matriz1[i].reverse());
+  }
+  return reversed;
   // una vez que rotorne ma matriz adecuada se ordenara de modos ASC
 };
 
@@ -92,19 +98,19 @@ const orderDesc = () => {
   alert(matriz);
   // una vez que rotorne ma matriz adecuada se ordenara de modos DESC
 };
-const frequentIndicator = (ind) => {
-  let country = ['PER', 'CHL', 'MEX', 'BRA'];
-  const indicator = ind;
-  newRowTableCountry(country);
-  newRowTableYear(2017, 2017);
-  showForEach(country, 2017, 2017, indicator);
-};
+// const frequentIndicator = (ind) => {
+//   let country = ['PER', 'CHL', 'MEX', 'BRA'];
+//   const indicator = ind;
+//   newRowTableCountry(country);
+//   newRowTableYear(2017, 2017);
+//   showForEach(country, 2017, 2017, indicator);
+// };
 window.worldbank = {
   // newRowTableCountry,
   // newRowTableYear,
   // newRowTableYearProp,
   // promResult,
-  // orderAsc,
+  orderAsc,
   // orderDesc,
   // frequentIndicator,
   // indicatiorsCaption,
