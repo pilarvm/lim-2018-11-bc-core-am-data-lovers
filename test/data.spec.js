@@ -1,58 +1,75 @@
-/* global worldbank:true */
-/* eslint no-undef: "error" */
+// variables globales 
+/* global WORLDBANK:true */
+/* eslint no-undef: 'error' */
 require('../src/data.js');
+const country = ['PER'];
+const arrYear = ['2016', '2017'];
+const ind = 'SL.TLF.ACTI.FE.ZS';
+const matrixFilter = [['71.57', '72.15']];
+const matrix = [['71.57', '72.15'], ['57.04', '57.50']];
+const matrixAsc = [['72.15', '71.57'], ['57.50', '57.04']];
+const prom = ['71.50', '57.00'];
 
+WORLDBANK = {
+  'PER': {
+    'indicators': [
+        {
+        'data': {
+          '2010': 75.0289993286133,
+          '2011': 74.4199981689453,
+          '2012': 74.2070007324219,
+          '2013': 73.8600006103516,
+          '2014': 72.6800003051758,
+          '2015': 71.0400009155273,
+          '2016': 71.5709991455078,
+          '2017': 72.1520004272461
+        },
+        'countryName': 'Perú',
+        'countryCode': 'PER',
+        'indicatorName': 'Tasa de participación en la fuerza laboral, mujeres (% de la población femenina entre 15-64 años) (estimación modelado OIT)',
+        'indicatorCode': 'SL.TLF.ACTI.FE.ZS'
+      }
+    ]
+  }
+};
+// chequear worldbank es objeto
+describe('worldbank', () => {
+  it('Debería ser un objeto', () => {
+    expect(typeof worldbank).toBe('object');
+  });
+});
 // chequear todas las funciones
-describe('worldbank.newRowTableCountry', () => {
+describe('worldbank.sortData', () => {
   it('Debería ser una funcion', () => {
-    expect(typeof worldbank.newRowTableCountry).toBe('function');
+    expect(typeof worldbank.sortData).toBe('function');
+  });
+  it('debería retornar un array invertido con la Tasa de participación en la fuerza laboral femenina del 2016 al 2017 - en Perú y chile', () => {
+    expect(worldbank.sortData(matrix, 'asc')).toEqual(matrixAsc);
   });
 });
-describe('worldbank.newRowTableYear', () => {
+describe('worldbank.computeStats', () => {
   it('Debería ser una funcion', () => {
-    expect(typeof worldbank.newRowTableYear).toBe('function');
+    expect(typeof worldbank.computeStats).toBe('function');
+  });
+  it('debería retornar un array con los promedios de la tasa de fuerza laboral en  Perú y chile', () => {
+    expect(worldbank.computeStats(matrix)).toEqual(prom);
   });
 });
-describe('worldbank.newRowTableYearProp', () => {
+describe('worldbank.indicatiorsCaption', () => {
   it('Debería ser una funcion', () => {
-    expect(typeof worldbank.newRowTableYearProp).toBe('function');
+    expect(typeof worldbank.indicatiorsCaption).toBe('function');
   });
 });
-describe('worldbank.searchMutipleCountry', () => {
+describe('worldbank.filterData', () => {
   it('Debería ser una funcion', () => {
-    expect(typeof worldbank.searchMutipleCountry).toBe('function');
+    expect(typeof worldbank.filterData).toBe('function');
   });
-});
-describe('worldbank.searchRangeYear', () => {
-  it('Debería ser una funcion', () => {
-    expect(typeof worldbank.searchRangeYear).toBe('function');
-  });
-});
-describe('worldbank.searchIndicator', () => {
-  it('Debería ser una funcion', () => {
-    expect(typeof worldbank.searchIndicator).toBe('function');
-  });
-});
-describe('worldbank.searchSex', () => {
-  it('Debería ser una funcion', () => {
-    expect(typeof worldbank.searchSex).toBe('function');
-  });
-});
-describe('worldbank.indicator', () => {
-  it('Debería ser una funcion', () => {
-    expect(typeof worldbank.indicator).toBe('function');
-  });
-});
-describe('worldbank.showResult', () => {
-  it('Debería ser una funcion', () => {
-    expect(typeof worldbank.showResult).toBe('function');
+  it('debería retornar un array con la Tasa de participación en la fuerza laboral femenina del 2016 al 2017 - en Perú y chile', () => {
+    expect(worldbank.filterData(country, arrYear, ind)).toEqual(matrixFilter);
   });
 });
 
-// chequear retorno de todas las funciones
-//   it('debería retornar un array, con el valor de los paises seleccionados', () => {
-//     expect(worldbank.searchMutipleCountry()).toEqual(output);
-//   });
+
 //   it('debería retornar un nuevo array, no modificar el original', () => {
 //     expect(potter.cambiarPropiedad(input)).not.toEqual(input);
 //   });
