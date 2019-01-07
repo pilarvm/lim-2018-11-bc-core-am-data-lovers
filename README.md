@@ -2,26 +2,27 @@
 
 ### ***Definición del producto***
 
-En este proyecto se construyo una interfaz web donde se puede visualizar y manipular data, segun lo que el usuario necesita.
+En este proyecto se construyo una interfaz web donde se puede visualizar y manipular data, según lo que el usuario necesita.
 
 
 
 ### ***Solución de problemas:***
 
-Esta interfaz web le muestra al usuario/a información de valor sobre cierta data del Banco Mundial que  requiere para poder *tomar decisiones para invertir, hacer turismo o crear servicios segun las necesidades que vea a travez de  analizar la data mostrada*.
+Esta interfaz web le muestra al usuario/a información de valor sobre cierta data del Banco Mundial que  requiere para poder *tomar decisiones para invertir, hacer turismo o crear servicios segun las necesidades que vea a través de  analizar la data mostrada*.
 
 ### ***Proceso de diseño***
 ***
 Para diseñar este producto tecnológico lo primero que se hizo fue:
 * Estudiar la data ofrecida, se seleccionó la data del Banco Mundial.
-* Se analizo la informacion que contenia, tanto como su linea grafica como la data a manipular.
-* Cada una creo un prototypo de baja fidelidad segun como procesamos la informacion, luego fusionamos ambas ideas. 
+* Se analizó la informacion que contenia, tanto como su línea gráfica como la data a manipular.
+* Cada una creo un prototypo de baja fidelidad según como procesamos la informacion, luego fusionamos ambas ideas. 
     * Obteniendo nuestro primer ***Prototipo #1***.
 
     ![giphy 1](https://user-images.githubusercontent.com/32286800/50740485-1debe200-11bd-11e9-8c33-f180c47a7e5e.gif)
 
 * Se le mostro el sketch(en lápiz y papel) a los usuarios obteniendo informacion de lo que se consideraban eran sus necesidades.
     * Obtuvimos las ***Primeras historias de usuario #1***
+
     ![image](https://user-images.githubusercontent.com/32286800/50734137-0df5e300-1168-11e9-96cb-39c37df18918.png)
 
 * Luego de una selección de acuerdo al alcance de la data surgen las ***historias de usuario finales #2***
@@ -35,6 +36,11 @@ Para diseñar este producto tecnológico lo primero que se hizo fue:
 
 ### **Prototipado de alta fidelidad** 
 ***
+
+**Prototipo en Zeplin**
+
+https://zpl.io/VQKdv94
+
 Vista #1
 ![image](https://user-images.githubusercontent.com/32286800/50733820-dcc6e400-1162-11e9-9db3-db8072ec92ce.png)
 
@@ -53,7 +59,7 @@ VERSION MOVIL
 
 Diseñamos una estructura básica en HTML para las presentaciones Demo y posteriormente fuimos centrándonos en el desarrollo de la funcionalidad, usando la técnica recomendada **pair programming**.
 
-Para la planificación usamos el tablero fisico con post it y tambien usamos el tablero de github por la semana en remoto 
+Para la planificación usamos el tablero físico con post it y también usamos el tablero de github por la semana en remoto 
 ![image](https://user-images.githubusercontent.com/32286800/50741078-60fe8300-11c6-11e9-8d54-c9c5ad1502aa.png)
 
 ### Testing
@@ -62,6 +68,6 @@ Para la planificación usamos el tablero fisico con post it y tambien usamos el 
 Luego de realizar el primer testeo, se procedió a realizar algunas mejoras en el prototipo y se procedió a realizar el prototipo de alta fidelidad en figma.
 
 Mejoras:
-* Pagina Index:  se creo el carrusel con botones de los principales indicadores, viendose la informacion del ultimo año y de todos los paises.
+* Página Index:  se creo el carrusel con botones de los principales indicadores, viendose la informacion del último año y de todos los paises.
 
-* Pagina de Busqueda Personalizada: Se modifico los indicadores y se definio la vista de la tabla de resultados.
+* Página de Búsqueda Personalizada: Se modifico los indicadores y se definio la vista de la tabla de resultados.

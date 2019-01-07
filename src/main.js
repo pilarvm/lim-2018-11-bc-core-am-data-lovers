@@ -50,7 +50,7 @@ const generateSumaryTable = (prom, arrCountry) => {
   tablaProm.setAttribute('border', '2');
 
   // document.getElementById('prom').appendChild(node);
-}
+};
 
 const generateTable = (matr, origin) => {
   // Obtener la referencia del elemento body
