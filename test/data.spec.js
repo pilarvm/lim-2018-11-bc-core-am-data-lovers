@@ -8,7 +8,7 @@ const ind = 'SL.TLF.ACTI.FE.ZS';
 const matrixFilter = [['71.57', '72.15']];
 const matrix = [['71.57', '72.15'], ['57.04', '57.50']];
 const matrixAsc = [['72.15', '71.57'], ['57.50', '57.04']];
-const prom = ['71.50', '57.00'];
+const prom = ['71.86', '57.27'];
 
 WORLDBANK = {
   'PER': {
