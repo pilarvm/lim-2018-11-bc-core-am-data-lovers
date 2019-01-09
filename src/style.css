@@ -77,10 +77,6 @@ margin-left: 25%;
     margin-bottom: 0.2em;
     padding: 0.8em;
     color: black;
-<<<<<<< HEAD
-    border-radius: 5px;
-    background-color: black;
-=======
     font-weight: bold;
     background: #99DFF9;
     width: 145px;
@@ -148,7 +144,6 @@ margin-left: 25%;
 table {
   border-collapse: collapse;
   margin: 3em 0 3em 5em;
->>>>>>> fb76f45b9a9cb2e135a1c81e502530fdcb6d7bbd
 }
 
 th, td {
