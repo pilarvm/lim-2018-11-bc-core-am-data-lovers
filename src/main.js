@@ -306,7 +306,7 @@ const generateTableMainIndicators = (matr, origin) => {
   body.appendChild(tabla);
 };
 // crear grafica de barra
-const grafica = (matrix) =>{
+const grafica = (matrix) => {
   $(document).ready(function() {
     let datos = {
     labels: ['2012', '2013', '2014', '2015', '2016', '2017'],
@@ -340,41 +340,8 @@ const grafica = (matrix) =>{
       type: 'bar',
       data: datos,
       options: {
-        elements: {
-          rectangle: {
-            borderWidth: 1,
-            borderColor: 'rgb(0,255,0)',
-            borderSkipped: 'bottom'
-          }
-        },
         responsive: true,
-        // title: {
-        //   display: true,
-        //   text: caption
-        // }
       }
     });
-
-    // setInterval(function () {
-    //   var newData = [
-    //     [getRandom(), getRandom(), getRandom(), getRandom() * -1, getRandom()],
-    //     [getRandom(), getRandom(), getRandom(), getRandom(), getRandom()],
-    //     [getRandom(), getRandom(), getRandom(), getRandom(), getRandom()],
-    //   ];
-
-    //   $.each(datos.datasets, function (i, dataset) {
-    //     dataset.data = newData[i];
-    //   });
-    //   window.bar.update();
-    // }, 5000);
-
-
-
-
-    // function getRandom() {
-    //   return Math.round(Math.random() * 100);
-    // }
-
-
   });
 };
